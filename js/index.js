@@ -1,364 +1,250 @@
 
-// function verificarEdad() {
-//     let ingreso = parseInt(prompt("Ingrese su edad"));
 
-//     if (isNaN(ingreso)) {
-//         console.log("Ingrese un numero por favor");
-//     } else {
-//         if (ingreso >= 18) {
-//             console.log("Bienvenido a nuestro sitio");
-//         } else {
-//             console.log("No tiene edad suficiente para ingresar, vuelva cuando tenga 18 años");
-//         }
-//     }
+const BOTON_MODO = document.getElementById("botonModo");
 
-//     alert("Bienvenido");
-// }
+BOTON_MODO.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
 
-// verificarEdad();
+    if (document.body.classList.contains("dark")) {
+        localStorage.setItem("modo", "dark");
+    } else {
+        localStorage.setItem("modo", "claro");
+    }
+})
 
+const modo = localStorage.getItem("modo");
 
-// function verificarStockYDescuento() {
-//     alert("Stock");
-    
-//     let enStock = prompt("¿El producto está en stock? Conteste si o no").toLowerCase();
-//     let precioDescuento = prompt("¿El producto tiene descuento? Conteste si o no").toLowerCase();
-
-//     if (enStock === "si" || precioDescuento === "si") {
-//         console.log("Producto Disponible");
-//     } else {
-//         console.log("Producto Agotado");
-//     }
-// }
-
-// verificarStockYDescuento();
+if (modo === "dark") {
+    document.body.classList.add("dark");
+} else {
+    document.body.classList.remove("dark");
+}
 
 
-// function multiplicarEn5() {
-//     alert("Ciclo For Utilizado Para Multiplicar en 5");
+class Cliente {
+    constructor(usuario, contraseña) {
+        this.usuario = usuario;
+        this.contraseña = contraseña;
+    }
+}
 
-//     const NUMERO = 5;
-    
-//     for (let i = 1; i <= 10; i++) {
-//         let resultado = NUMERO * i;
-//         console.log(NUMERO + " X " + i + " = " + resultado);
-//     }
-// }
+let arrayClientes = [];
 
-// multiplicarEn5();
+const formulario = document.getElementById("formulario");
 
+formulario.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const nombre = document.getElementById("usuario");
+    const apellido = document.getElementById("contraseña");
 
-// function juegoDescuento() {
-//     alert("Adivina la palabra y ganate un descuento del 10% (javascript)");
+    console.log("El usuario ingresado es: " + nombre.value);
+    console.log("La contraseña ingresada es: " + apellido.value);
 
-//     const JUEGO_DESCUENTO = "javascript";
-//     let intentos = 0;
-//     let adivinanza = "";
-//     let acertado = false; 
+    const cliente = new Cliente(nombre.value, apellido.value);
+    arrayClientes.push(cliente);
 
-//     while (intentos < 3) {
-//         adivinanza = prompt("Adivina la palabra").toLowerCase();
-//         intentos++;
+    localStorage.setItem("clientes", JSON.stringify(arrayClientes));
 
-//         if (adivinanza === JUEGO_DESCUENTO) {
-//             acertado = true;
-//             break; 
-//         } else {
-//             alert("Esa no es, adivina de nuevo");
-//         }
-//     }
+    console.log(arrayClientes);
 
-//     if (acertado) {
-//         alert("¡Felicitaciones! Ganaste el descuento del 10%.");
-//     } else {
-//         alert("Lo siento, has agotado tus intentos. ¡Inténtalo de nuevo la próxima vez!");
-//     }
-// }
+    formulario.reset();
+});
 
-// juegoDescuento();
+function cargarClientes() {
+    let clientes = localStorage.getItem("clientes");
 
+    if (clientes) {
+        arrayClientes = JSON.parse(clientes);  
+    }
+}
 
-// function sumarNumerosAleatorios() {
-//     alert("Sumar Numeros Aleatorios");
-    
-//     let suma = 0;
-//     let continuar; 
+cargarClientes();
 
-//     do {
-//         const NUMERO = parseFloat(prompt("Ingresa un numero para sumar"));
-        
-//         if (!isNaN(NUMERO)) {
-//             suma += NUMERO;
-//             continuar = prompt("¿Quiere ingresar otro numero? (si/no)").toLowerCase();
-//         } else {
-//             alert("Ingresa un numero válido");
-//             continuar = "si"; 
-//         }
-//     } while (continuar === "si");
+function cargarTareas() {
+    let tareas = localStorage.getItem("tareas");
 
-//     alert("La suma total es: " + suma);
-// }
+    if (tareas) {
+        let listaTareas = document.getElementById("listaTareas");
+        listaTareas.innerHTML = tareas;
+        asignarEventosABotones();
+    }
+}
 
-// sumarNumerosAleatorios();
+function agregarTarea() {
+    let tareaInput = document.getElementById("tareasInput");
+    let nuevaTarea = tareaInput.value.trim();
 
+    if (nuevaTarea !== "") {
+        let tareas = localStorage.getItem("tareas") || "";
+        tareas += `<li>${nuevaTarea} <button onclick="eliminarTarea(this.parentNode)">Borrar</button></li>`;
+        localStorage.setItem("tareas", tareas);
+        tareaInput.value = "";
+        cargarTareas();
+    }
+}
 
-// function miniCalculadora() {
-//     alert("Mini Calculadora");
-    
-//     let numero1 = parseInt(prompt("Ingresa un numero"));
-//     let operacion = prompt("Ingrese la operacion: +, -, *, /");
-//     let numero2 = parseInt(prompt("Ingresa otro numero"));
+function eliminarTarea(tarea) {
+    let listaTareas = document.getElementById("listaTareas");
+    let tareas = listaTareas.innerHTML;
 
-//     let resultado;
-//     switch (operacion) {
-//         case "+":
-//             resultado = numero1 + numero2;
-//             break;
-//         case "-":
-//             resultado = numero1 - numero2;
-//             break;
-//         case "*":
-//             resultado = numero1 * numero2;
-//             break;
-//         case "/":
-//             resultado = numero1 / numero2;
-//             break;
-//         default:
-//             alert("Operacion no valida");
-//             resultado = "Indefinido";
-//     }
+    tareas = tareas.replace(tarea.outerHTML, "");
+    localStorage.setItem("tareas", tareas);
 
-//     alert("El resultado es: " + resultado);
-// }
+    listaTareas.innerHTML = tareas;
 
-// miniCalculadora();
+    asignarEventosABotones();
+}
 
+function asignarEventosABotones() {
+    let botonesBorrar = document.querySelectorAll("#listaTareas li button");
+    botonesBorrar.forEach((boton) => {
+        boton.addEventListener("click", function() {
+            eliminarTarea(boton.parentNode);
+        });
+    });
+}
 
+cargarTareas();
 
-// alert("Funcion Sumar");
-// function sumar(){
-//     let num1 = parseInt(prompt("Ingresa un numero"));
-//     let num2 = parseInt(prompt("Ingresa un numero"));
-//     let suma = num1 + num2;
-//     console.log("La suma es: " + suma);
-// }
-
-// sumar();
 
 
 const PRODUCTOS = [
-    {nombre: 'PC 1', precio: 1000 },
-    {nombre: 'Monitor 1', precio: 3000 },
-    {nombre: 'CPU 1', precio: 4500 },
-    {nombre: 'Mouse', precio: 500 },
-    {nombre: 'Teclado', precio: 500 },
-    {nombre: 'Auriculares', precio: 1500 },
+    { id: 1, nombre: 'CPU Intel i5', precio: 3000, img: "img/cpu-intel-i5.jpg" },
+    { id: 2, nombre: 'Monitor', precio: 8000, img: "img/monitor.avif" },
+    { id: 3, nombre: 'Teclado', precio: 2500, img: "img/teclado.webp" },
+    { id: 4, nombre: 'Mouse', precio: 5000, img: "https://support.content.office.net/es-es/media/e8384959-ad1a-1b95-762b-2861496b886e.png" },
+    { id: 5, nombre: 'CPU Ryzen 5', precio: 8500, img: "img/cpu-ryzen-5.jpeg" },
+    { id: 6, nombre: 'Mouse Gamer', precio: 1000, img: "img/mouse.webp" },
+    { id: 7, nombre: 'Monitor Curvo', precio: 3000, img: "https://ar-media.hptiendaenlinea.com/wysiwyg/Las_5_razones_principales_para_comprar_un_monitor_de_PC_curvo_2.png" },
+    { id: 8, nombre: 'Teclado RGB', precio: 4500, img: "https://www.infinitonline.com.ar/images/000000000000184701533TECLADO-USB-GAMER-MECANICO-REDRAGON-K552-KUMARA-NEGRO-RGB--K552-RGB--SWITCH-AZUL.jpg" },
 ];
 
-function saberPrecio (productos){
-    console.log(`El producto es ${productos.nombre}, y su valor es de ${productos.precio}`);
-}
+const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-PRODUCTOS.forEach(saberPrecio);
+actualizarCarrito();
 
-const MAYOR_PRODUCTO = PRODUCTOS.find(function(producto){
-    return producto.precio > 2500;
-})
+function renderizarProductos() {
+    const carritoElement = document.getElementById('carrito');
+    carritoElement.innerHTML = '';
 
-console.log(MAYOR_PRODUCTO);
+    const productosEnCarrito = document.createElement('div');
+    productosEnCarrito.classList.add('d-flex', 'flex-row', 'flex-wrap', 'gap-1');
 
-const precioMinimoUsuario = parseFloat(prompt("Ingrese el precio minimo que desee"));
-
-if(isNaN(precioMinimoUsuario)){
-    console.log("Ingrese un precio");
-} {
-    const productoFiltrado = PRODUCTOS.filter(function(producto){
-        return producto.precio >= precioMinimoUsuario;
+    PRODUCTOS.forEach(producto => {
+        const card = document.createElement('div');
+        card.classList.add('card', 'mb-3');
+        card.innerHTML = `
+            <img src="${producto.img}" alt="${producto.nombre}">
+            <h3>${producto.nombre}</h3>
+            <p>precio: ${producto.precio.toFixed(2)}</p>
+            <button onclick="agregarAlCarrito(${producto.id}, '${producto.img}')">agregar carrito</button>
+        `;
+        productosEnCarrito.appendChild(card);
     });
-    console.log("Productos que cumplen", productoFiltrado);
-};
 
-
-const NUMEROS = [2,3,10,5,9,7];
-
-const hayNumeroMayor = NUMEROS.some(function(numero){
-    return numero > 1; 
-});
-
-console.log(hayNumeroMayor);
-
-
-const nombreMayuscula = PRODUCTOS.map(function(producto){
-    return producto.nombre.toLocaleUpperCase();
-})
-
-console.log(nombreMayuscula);
-
-const porcentajeAumentado = 0.1;
-
-const precioAumentado = PRODUCTOS.map(function(producto){
-    return{
-        nombre: producto.nombre,
-        precio: producto.precio*(1+porcentajeAumentado)
-    }
-})
-
-console.log(precioAumentado);
-
-
-let produOrden = [
-    {nombre: "Monitor", precio: 3000},
-    {nombre: "Notebook", precio: 15000},
-    {nombre: "Mouse", precio: 2500},
-    {nombre: "Parlante", precio: 5500},
-];
-
-produOrden.sort(function(a,b){
-    return a.precio - b.precio
-});
-
-
-console.log(produOrden);
-
-const TITULO = document.getElementById("tituloPrincipal"); 
-
-console.log(TITULO); 
-
-
-const NOMBRES = document.getElementsByClassName("nombres");
-
-console.log(NOMBRES);
-
-const LI = document.getElementsByTagName("li");
-console.log(LI); 
-
-
-const QueryNames = document.querySelector(".nombres"); 
-console.log(QueryNames);
-
-const QueryNamesAll = document.querySelectorAll(".nombres"); 
-console.log(QueryNamesAll);
-
-
-// TITULO.innerText = "HOLAAAA";
-
-const SECTION_CONT = document.getElementById("seccionContenedor");
-
-// SECTION_CONT.innerHTML = `
-//                             <div class="card">
-//                                 <img src="" alt="">
-//                                 <div>
-//                                     <h3>titulo de la card</h3>
-//                                     <p>precio del producto</p>
-//                                     <button>comprar</button>
-//                                 </div>
-//                             </div>`
-
-
-const contenedor = document.getElementById("contenedor");
-
-const tituloCompras = document.createElement("h2");
-
-tituloCompras.innerText = "Productos Disponibles";
-tituloCompras.className = "rojo";
-
-contenedor.appendChild(tituloCompras); 
-
-
-//parrafo.remove(); PARA ELIMINAR ELEMENTOS.
-
-
-class Producto{
-    constructor(nombre,precio,img){
-        this.nombre = nombre;
-        this.precio = precio;
-        this.img = img;
-    }
+    carritoElement.appendChild(productosEnCarrito);
 }
 
-const PROD1 = new Producto("CPU Intel i5",3000,"img/cpu-intel-i5.jpg");
-const PROD2 = new Producto("Monitor",8000,"img/monitor.avif");
-const PROD3 = new Producto("Teclado",250000,"img/teclado.webp");
-const PROD4 = new Producto("Mouse",50000,"https://support.content.office.net/es-es/media/e8384959-ad1a-1b95-762b-2861496b886e.png");
-const PROD5 = new Producto("CPU Ryzen 5",2500,"img/cpu-ryzen-5.jpeg");
-const PROD6 = new Producto("Mouse Gamer",10000,"img/mouse.webp");
-const PROD7 = new Producto("Monitor Curvo",30000,"https://ar-media.hptiendaenlinea.com/wysiwyg/Las_5_razones_principales_para_comprar_un_monitor_de_PC_curvo_2.png");
-const PROD8 = new Producto("Teclado RGB",4500,"https://www.infinitonline.com.ar/images/000000000000184701533TECLADO-USB-GAMER-MECANICO-REDRAGON-K552-KUMARA-NEGRO-RGB--K552-RGB--SWITCH-AZUL.jpg");
+function agregarAlCarrito(idProducto, imgProducto) {
+    const productoExistente = carrito.find(producto => producto.id === idProducto);
 
-const arrayProductos = [PROD1,PROD2,PROD3,PROD4,PROD5,PROD6,PROD7,PROD8];
-
-const contenedorDeProductos = document.getElementById("contenedorDeProductos");
-
-arrayProductos.forEach(producto =>{
-    const div = document.createElement("div");
-
-    div.className = "card";
-
-    div.innerHTML = `
-                    <img class="card-img" src="${producto.img}">
-                    <div>
-                        <h3>${producto.nombre}</h3>
-                        <p>${producto.precio}</p>
-                        <button>comprar</button>
-                    </div>
-                    `;
- 
-    contenedorDeProductos.appendChild(div);
-})
-
-
-
-function ordenarPorPrecio() {
-    const opcion = prompt("¿Deseas ordenar los productos por precio? (asc/desc)").toLowerCase();
-
-    if (opcion === "asc") {
-        arrayProductos.sort((a, b) => a.precio - b.precio);
-    } else if (opcion === "desc") {
-        arrayProductos.sort((a, b) => b.precio - a.precio);
+    if (productoExistente) {
+        productoExistente.cantidad += 1;
     } else {
-        alert("Opción no válida. Por favor, ingresa 'asc' para ascendente o 'desc' para descendente.");
-        return;
+        const productoSeleccionado = PRODUCTOS.find(producto => producto.id === idProducto);
+
+        if (productoSeleccionado) {
+            productoSeleccionado.cantidad = 1;
+            productoSeleccionado.img = imgProducto;
+            carrito.push(productoSeleccionado);
+        }
     }
 
-    mostrarProductos(arrayProductos);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    actualizarCarrito();
 }
 
-function buscarProductoPorNombre() {
-    const nombreBuscado = prompt("Ingresa el nombre del producto que deseas buscar:");
-    const productosFiltrados = arrayProductos.filter(producto => producto.nombre.toLowerCase().includes(nombreBuscado.toLowerCase()));
+function actualizarCarrito() {
+    const carritoElement = document.getElementById('total');
+    carritoElement.innerHTML = '';
 
-    if (productosFiltrados.length === 0) {
-        alert("No se encontraron productos con ese nombre.");
-        return;
-    }
+    const productosEnCarrito = document.createElement('div');
+    productosEnCarrito.classList.add('d-flex', 'flex-row', 'flex-wrap', 'gap-1');
 
-    mostrarProductos(productosFiltrados);
-}
-
-function mostrarProductos(productos) {
-    contenedorDeProductos.innerHTML = "";
-
-    productos.forEach(producto => {
-        const div = document.createElement("div");
-        div.className = "card";
-        div.innerHTML = `
-            <img class="card-img" src="${producto.img}">
-            <div>
-                <h3>${producto.nombre}</h3>
-                <p>${producto.precio}</p>
-                <button>comprar</button>
-            </div>`;
-        contenedorDeProductos.appendChild(div);
+    carrito.forEach(producto => {
+        const card = document.createElement('div');
+        card.classList.add('card', 'mb-3');
+        card.innerHTML = `
+            <img src="${producto.img}" alt="${producto.nombre}">
+            <h3>${producto.nombre}</h3>
+            <p>precio: ${producto.precio.toFixed(2)}</p>
+            <p>cantidad: ${producto.cantidad}</p>
+            <button onclick="eliminarUno(${producto.id})">Eliminar uno</button>
+            <button onclick="eliminarTodos(${producto.id})">Eliminar todos</button>
+        `;
+        productosEnCarrito.appendChild(card);
     });
+
+    carritoElement.appendChild(productosEnCarrito);
+
+    sumarTotal();
 }
 
-const deseaBuscar = prompt("¿Deseas buscar un producto por nombre? (si/no)").toLowerCase();
+function eliminarUno(idProducto) {
+    const index = carrito.findIndex(producto => producto.id === idProducto);
 
-if (deseaBuscar === "si") {
-    buscarProductoPorNombre();
-} else {
-    ordenarPorPrecio();
+    if (index !== -1) {
+        const producto = carrito[index];
+
+        if (producto.cantidad > 1) {
+            producto.cantidad -= 1;
+        } else {
+            carrito.splice(index, 1);
+        }
+
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+
+        actualizarCarrito();
+    }
 }
+
+function eliminarTodos(idProducto) {
+    const index = carrito.findIndex(producto => producto.id === idProducto);
+
+    if (index !== -1) {
+        carrito.splice(index, 1);
+
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+
+        actualizarCarrito();
+    }
+}
+
+function sumarTotal() {
+    const totalElement = document.getElementById('final');
+    const total = carrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0);
+    totalElement.innerHTML = `<p> total: $${total.toFixed(2)}</p>`;
+}
+
+cargarClientes();
+renderizarProductos();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
