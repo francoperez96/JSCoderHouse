@@ -1,0 +1,182 @@
+[
+    {
+        "id": "vodka-01",
+        "titulo": "Vodka 01",
+        "imagen": "./img/VODKA-ABSOLUT.jpg",
+        "categoria": {
+            "nombre": "Vodkas",
+            "id": "vodkas"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "vodka-02",
+        "titulo": "Vodka 02",
+        "imagen": "./img/VODKA-BELVEDERE.webp",
+        "categoria": {
+            "nombre": "Vodkas",
+            "id": "vodkas"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "vodka-03",
+        "titulo": "Vodka 03",
+        "imagen": "./img/VODKA-SKY.webp",
+        "categoria": {
+            "nombre": "Vodkas",
+            "id": "vodkas"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "vodka-04",
+        "titulo": "Vodka 04",
+        "imagen": "./img/VODKA-TAILOV.png",
+        "categoria": {
+            "nombre": "Vodkas",
+            "id": "vodkas"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "vodka-05",
+        "titulo": "Vodka 05",
+        "imagen": "./img/VODKA-SMIRNOFF.png",
+        "categoria": {
+            "nombre": "Vodkas",
+            "id": "vodkas"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "wisky-01",
+        "titulo": "Wisky 01",
+        "imagen": "./img/WISKY-CHIVAS-12.jpeg",
+        "categoria": {
+            "nombre": "Wiskys",
+            "id": "wiskys"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "wisky-02",
+        "titulo": "Wisky 02",
+        "imagen": "./img/WISKY-CHIVAS-21.jpg",
+        "categoria": {
+            "nombre": "Wiskys",
+            "id": "wiskys"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "wisky-03",
+        "titulo": "Wisky 03",
+        "imagen": "./img/WISKY-CHIVAS-MIZUNARA.jpg",
+        "categoria": {
+            "nombre": "Wiskys",
+            "id": "wiskys"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "wisky-04",
+        "titulo": "Wisky 04",
+        "imagen": "./img/WISKY-JOHNNIE-BLACK.webp",
+        "categoria": {
+            "nombre": "Wiskys",
+            "id": "wiskys"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "wisky-05",
+        "titulo": "Wisky 05",
+        "imagen": "./img/WISKY-JOHNNIE-BLUE.jpg",
+        "categoria": {
+            "nombre": "Wiskys",
+            "id": "wiskys"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "wisky-06",
+        "titulo": "Wisky 06",
+        "imagen": "./img/WISKY-JOHNNIE-DOUBLE-BLACK.jpg",
+        "categoria": {
+            "nombre": "Wiskys",
+            "id": "wiskys"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "wisky-07",
+        "titulo": "Wisky 07",
+        "imagen": "./img/WISKY-JOHNNIE-GREEN.jpg",
+        "categoria": {
+            "nombre": "Wiskys",
+            "id": "wiskys"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "wisky-08",
+        "titulo": "Wisky 08",
+        "imagen": "./img/WISKY-CHIVAS-18.jpeg",
+        "categoria": {
+            "nombre": "Wiskys",
+            "id": "wiskys"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "licor-01",
+        "titulo": "Licor 01",
+        "imagen": "./img/JAGERMEISTER.png",
+        "categoria": {
+            "nombre": "Licores",
+            "id": "licores"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "licor-02",
+        "titulo": "Licor 02",
+        "imagen": "./img/JAGERMEISTER-MANIFEST.jpeg",
+        "categoria": {
+            "nombre": "Licores",
+            "id": "licores"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "licor-03",
+        "titulo": "Licor 03",
+        "imagen": "./img/BAILEYS.jpg",
+        "categoria": {
+            "nombre": "Licores",
+            "id": "licores"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "licor-04",
+        "titulo": "Licor 04",
+        "imagen": "./img/LICOR-DDL.jpg",
+        "categoria": {
+            "nombre": "Licores",
+            "id": "licores"
+        },
+        "precio": 1000
+    },
+    {
+        "id": "licor-05",
+        "titulo": "Licor 05",
+        "imagen": "./img/AMARULA.jpg",
+        "categoria": {
+            "nombre": "Licores",
+            "id": "licores"
+        },
+        "precio": 1000
+    }
+]
